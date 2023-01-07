@@ -207,7 +207,7 @@ Unbelievable.`);
       embed.setDescription(
         `**${name}** finished in the **${randomPlace}** place and **lost** the race.
         
-They got **$${lostMoneys}** consolation price.`
+They got **$${lostMoneys}** consolation prize.`
       );
       test?.edit({ embeds: [embed] });
     }, 55000);
