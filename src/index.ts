@@ -19,6 +19,8 @@ dotenv.config();
 
 // Import command type declarations
 import { Command } from "./types";
+
+// Import button functions
 import handleUpgradeLevel from "./buttons/upgrade_level";
 import handleUpgradeSpeed from "./buttons/upgrade_speed";
 import handleUpgradeHorse from "./buttons/get_new_horse";
@@ -145,7 +147,9 @@ client.on("messageCreate", (message) => {
 });
 
 client.on(Events.InteractionCreate, async (interaction) => {
+  // If interaction is not a button, do nothing
   if (!interaction.isButton()) return;
+  // Execute button function
   switch (interaction.customId) {
     case "upgrade_level":
       await handleUpgradeLevel(client, interaction);
