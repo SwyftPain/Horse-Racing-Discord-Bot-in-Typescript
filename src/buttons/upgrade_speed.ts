@@ -51,7 +51,7 @@ export default async (client: Client, interaction: Interaction) => {
   const newSpd = sp + 1;
 
   // Check if horse can be sped up further
-  if (upspd > 9) {
+  if (newSpd > 10) {
     interaction.reply({
       content: "You can't increase the speed of your horse any further!",
       ephemeral: true,

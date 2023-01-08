@@ -167,6 +167,7 @@ They earned **$${wonMoneys}**!`
       test?.edit({ embeds: [embed] });
     }, 45000);
     await db.set(`${interaction.user.id}_profile.money`, wonMoney);
+    await db.add(`${interaction.user.id}_races.won`, 1);
   } else {
     // If user loses, set messages with delay
     embed.setDescription(
@@ -212,5 +213,6 @@ They got **$${lostMoneys}** consolation prize.`
       test?.edit({ embeds: [embed] });
     }, 55000);
     await db.set(`${interaction.user.id}_profile.money`, lostMoney);
+    await db.add(`${interaction.user.id}_races.lost`, 1);
   }
 };

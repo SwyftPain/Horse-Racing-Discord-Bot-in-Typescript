@@ -51,7 +51,7 @@ export default async (client: Client, interaction: Interaction) => {
   const newLvl = level + 1;
 
   // Check if horse can be leveled up further
-  if (newLvl > 9) {
+  if (newLvl > 10) {
     interaction.reply({
       content: "You can't level up your horse any further!",
       ephemeral: true,

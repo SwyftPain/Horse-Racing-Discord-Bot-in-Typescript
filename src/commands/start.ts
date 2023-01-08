@@ -35,6 +35,23 @@ export const command: Command = {
     // Get databases
     const check: any = await db.get(`${message.author.id}_horse`);
     const profile: any = await db.get(`${message.author.id}_profile`);
+    const racesWonn: any = await db.get(`${message.author.id}_races.won`);
+    const racesLostt: any = await db.get(`${message.author.id}_races.lost`);
+    let racesWon: number;
+    let racesLost: number;
+    if(racesWonn == null && racesLostt == null) {
+      racesWon = 0;
+      racesLost = 0;
+    } else if (racesWonn == null && racesLostt != null) {
+      racesWon = racesLostt;
+      racesLost = 0;
+    } else if (racesWonn != null && racesLostt == null) {
+      racesWon = racesWonn;
+      racesLost = 0;
+    } else {
+      racesWon = racesWonn;
+      racesLost = racesLostt;
+    }
 
     // If profile database is empty, create a new one
     if (profile == null) {
@@ -96,14 +113,7 @@ export const command: Command = {
         {
           name: ":information_source: Info:",
           value: `:credit_card: **Money:** $${money}`,
-          inline: false,
-        },
-        {
-          name: "📊 Horse Stats:",
-          value: `💥 **Level:** ${level}
-🏃 **Speed:** ${speed}
-`,
-          inline: false,
+          inline: true,
         },
         {
           name: `💵 Upgrade costs:`,
@@ -111,8 +121,21 @@ export const command: Command = {
 💥 **Level:** $${uplvl}
 🏃 **Speed:** $${upspeed}
 `,
+          inline: false,
+        },
+        {
+          name: "📊 Horse Stats:",
+          value: `💥 **Level:** ${level}
+🏃 **Speed:** ${speed}
+`,
           inline: true,
-        }
+        },
+        {
+          name: `📊 Race Stats:`,
+          value: `:race_car: **Won:** ${racesWon}
+:racehorse: **Lost:** ${racesLost}`,
+          inline: true
+        },
       );
       embed.setColor("Yellow");
 
@@ -125,7 +148,7 @@ export const command: Command = {
       button1.setEmoji("🏃");
       button1.setStyle(ButtonStyle.Success);
       // If speed is 10, disable upgrading
-      if (speed > 9) {
+      if (speed >= 10) {
         button1.setDisabled(true);
       }
       const button2 = new ButtonBuilder();
@@ -134,7 +157,7 @@ export const command: Command = {
       button2.setStyle(ButtonStyle.Success);
       button2.setEmoji("💥");
       // If level is 10, disable upgrading
-      if (level > 9) {
+      if (level >= 10) {
         button2.setDisabled(true);
       }
       const button3 = new ButtonBuilder();
